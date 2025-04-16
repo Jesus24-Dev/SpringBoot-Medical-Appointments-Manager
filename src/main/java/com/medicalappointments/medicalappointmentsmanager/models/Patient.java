@@ -6,11 +6,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,6 +33,9 @@ public class Patient {
     
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    
+    @OneToMany(mappedBy = "patient_id", fetch = FetchType.LAZY)
+    private List<Appointment> patientAppointments = new ArrayList<>();
     
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -99,6 +106,14 @@ public class Patient {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
+    public List<Appointment> getPatientAppointments() {
+        return patientAppointments;
+    }
+
+    public void setPatientAppointments(List<Appointment> patientAppointments) {
+        this.patientAppointments = patientAppointments;
+    }  
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

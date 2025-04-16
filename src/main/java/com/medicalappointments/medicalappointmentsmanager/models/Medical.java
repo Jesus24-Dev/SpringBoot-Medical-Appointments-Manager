@@ -7,10 +7,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,6 +35,9 @@ public class Medical {
     @Enumerated(EnumType.STRING)  
     @Column(name ="shift")
     private Shift shiftType;
+    
+    @OneToMany(mappedBy = "medical_id", fetch = FetchType.LAZY)
+    private List<Appointment> medicalAppointments = new ArrayList<>();
 
     public Medical() {
     }
@@ -65,7 +72,7 @@ public class Medical {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
+    }    
 
     public MedicalSpecialty getSpecialty() {
         return specialty;
@@ -82,5 +89,13 @@ public class Medical {
     public void setShiftType(Shift shiftType) {
         this.shiftType = shiftType;
     }
+
+    public List<Appointment> getMedicalAppointments() {
+        return medicalAppointments;
+    }
+
+    public void setMedicalAppointments(List<Appointment> medicalAppointments) {
+        this.medicalAppointments = medicalAppointments;
+    }  
     
 }
