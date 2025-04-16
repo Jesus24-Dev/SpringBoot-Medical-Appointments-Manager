@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Register page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2>Register form</h2>
+        <form th:action="@{/register}" th:object="${patient}" th:method="POST">
+            <div>
+                <label>Name</label>
+                <input type="text" th:field="*{name}"/>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div>
+                <label>Lastname</label>
+                <input type="text" th:field="*{lastname}"/>
+                <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></span>
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" th:field="*{email}"/>
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" th:field="*{password}"/>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+            <div>
+                <label>Gender</label>               
+                <select th:field="*{gender}">
+                    <option th:each="g : ${T(com.medicalappointments.medicalappointmentsmanager.enums.Gender).values()}" 
+                            th:text="${g}" 
+                            th:value="${g}"></option>
+                </select>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+    </body>
+</html>
