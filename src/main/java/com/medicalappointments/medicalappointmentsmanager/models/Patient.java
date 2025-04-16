@@ -34,7 +34,7 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     
-    @OneToMany(mappedBy = "patient_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Appointment> patientAppointments = new ArrayList<>();
     
     @CreationTimestamp

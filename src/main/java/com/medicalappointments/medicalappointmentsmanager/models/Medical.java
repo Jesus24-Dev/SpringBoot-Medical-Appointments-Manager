@@ -36,7 +36,7 @@ public class Medical {
     @Column(name ="shift")
     private Shift shiftType;
     
-    @OneToMany(mappedBy = "medical_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "medical", fetch = FetchType.LAZY)
     private List<Appointment> medicalAppointments = new ArrayList<>();
 
     public Medical() {
