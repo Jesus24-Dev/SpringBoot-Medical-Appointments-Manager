@@ -4,7 +4,7 @@ package com.medicalappointments.medicalappointmentsmanager.dtos.request;
 import com.medicalappointments.medicalappointmentsmanager.enums.Gender;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class PatientRequest {
@@ -25,7 +25,7 @@ public class PatientRequest {
     @Size(min = 6, message = "The password requires a minimum of 6 characters")
     private String password;
     
-    @NotEmpty(message = "Gender is required")
+    @NotNull(message = "Gender is required")
     private Gender gender;
 
     public String getName() {
