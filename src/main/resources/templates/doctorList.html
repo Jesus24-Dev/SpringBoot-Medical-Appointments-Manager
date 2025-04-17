@@ -7,6 +7,21 @@
     </head>
     <body>
         <h2>Medical List</h2>
+
+        <form th:action="@{/doctor/search}" method="get">
+            <label for="specialty">Search by Specialty:</label>
+            <select id="specialty" name="specialty">
+                <option value="">-- Select Specialty --</option>
+                <option th:each="specialty : ${T(com.medicalappointments.medicalappointmentsmanager.enums.DoctorSpecialty).values()}"  
+                        th:text="${specialty}"  
+                        th:value="${specialty}">
+                </option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+
+        <br/>
+
         <table>
             <thead>
                 <tr>
