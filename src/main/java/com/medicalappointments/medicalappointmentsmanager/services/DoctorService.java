@@ -2,6 +2,7 @@
 package com.medicalappointments.medicalappointmentsmanager.services;
 
 import com.medicalappointments.medicalappointmentsmanager.dtos.response.DoctorResponse;
+import com.medicalappointments.medicalappointmentsmanager.enums.DoctorSpecialty;
 import com.medicalappointments.medicalappointmentsmanager.models.Doctor;
 import com.medicalappointments.medicalappointmentsmanager.repository.DoctorRepository;
 import java.util.List;
@@ -17,5 +18,15 @@ public class DoctorService {
         List<Doctor> doctors = doctorRepository.findAll();
         
         return doctors.stream().map(DoctorResponse::new).toList();
+    }
+    
+    public List<DoctorResponse> searchBySpecialty(String specialtyText) {
+        try {
+            DoctorSpecialty specialty = DoctorSpecialty.valueOf(specialtyText.toUpperCase());
+            List<Doctor> doctors = doctorRepository.findBySpecialty(specialty);
+            return doctors.stream().map(DoctorResponse::new).toList();
+        } catch (IllegalArgumentException e) {
+            return List.of();
+        }
     }
 }
