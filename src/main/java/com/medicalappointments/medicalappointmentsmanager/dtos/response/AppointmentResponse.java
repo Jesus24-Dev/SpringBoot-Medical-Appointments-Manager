@@ -10,7 +10,7 @@ public class AppointmentResponse {
     private final Long id;
     
     private final PatientMinResponse patient;
-    private final MedicalMinResponse medical;
+    private final DoctorMinResponse doctor;
     
     private final LocalDate appointmentDate;
     private final LocalTime appointmentTime;
@@ -18,7 +18,7 @@ public class AppointmentResponse {
     public AppointmentResponse(Appointment appointment) {
         this.id = appointment.getId();
         this.patient = new PatientMinResponse(appointment.getPatient());
-        this.medical = new MedicalMinResponse(appointment.getMedical());
+        this.doctor = new DoctorMinResponse(appointment.getDoctor());
         this.appointmentDate = appointment.getAppointmentDate();
         this.appointmentTime = appointment.getAppointmentTime();
     }
@@ -31,8 +31,8 @@ public class AppointmentResponse {
         return patient;
     }
 
-    public MedicalMinResponse getMedical() {
-        return medical;
+    public DoctorMinResponse getDoctor() {
+        return doctor;
     }
 
     public LocalDate getAppointmentDate() {

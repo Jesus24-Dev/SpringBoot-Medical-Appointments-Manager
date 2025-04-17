@@ -17,11 +17,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="medical : ${medicals}">
-                    <td th:text="${medical.lastname}"></td>
-                    <td th:text="${medical.name}"></td>
-                    <td th:text="${medical.shiftType}"></td>
-                    <td th:text="${medical.specialty}"></td>
+                <tr th:each="doctor : ${doctors}">
+                    <td th:text="${doctor.lastname}"></td>
+                    <td th:text="${doctor.name}"></td>
+                    <td th:text="${doctor.shiftType}"></td>
+                    <td th:text="${doctor.specialty}"></td>
                 </tr>
             </tbody>
         </table>

@@ -1,7 +1,7 @@
 
 package com.medicalappointments.medicalappointmentsmanager.models;
 
-import com.medicalappointments.medicalappointmentsmanager.enums.MedicalSpecialty;
+import com.medicalappointments.medicalappointmentsmanager.enums.DoctorSpecialty;
 import com.medicalappointments.medicalappointmentsmanager.enums.Shift;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "medical")
-public class Medical {
+@Table(name = "doctor")
+public class Doctor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -30,19 +30,19 @@ public class Medical {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "specialty")
-    private MedicalSpecialty specialty;
+    private DoctorSpecialty specialty;
     
     @Enumerated(EnumType.STRING)  
     @Column(name ="shift")
     private Shift shiftType;
     
-    @OneToMany(mappedBy = "medical", fetch = FetchType.LAZY)
-    private List<Appointment> medicalAppointments = new ArrayList<>();
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    private List<Appointment> doctorAppointments = new ArrayList<>();
 
-    public Medical() {
+    public Doctor() {
     }
 
-    public Medical(UUID id, String name, String lastname, MedicalSpecialty specialty, Shift shiftType) {
+    public Doctor(UUID id, String name, String lastname, DoctorSpecialty specialty, Shift shiftType) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -74,11 +74,11 @@ public class Medical {
         this.lastname = lastname;
     }    
 
-    public MedicalSpecialty getSpecialty() {
+    public DoctorSpecialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(MedicalSpecialty specialty) {
+    public void setSpecialty(DoctorSpecialty specialty) {
         this.specialty = specialty;
     }
 
@@ -90,12 +90,12 @@ public class Medical {
         this.shiftType = shiftType;
     }
 
-    public List<Appointment> getMedicalAppointments() {
-        return medicalAppointments;
+    public List<Appointment> getDoctorAppointments() {
+        return doctorAppointments;
     }
 
-    public void setMedicalAppointments(List<Appointment> medicalAppointments) {
-        this.medicalAppointments = medicalAppointments;
+    public void setDoctorAppointments(List<Appointment> doctorAppointments) {
+        this.doctorAppointments = doctorAppointments;
     }  
     
 }

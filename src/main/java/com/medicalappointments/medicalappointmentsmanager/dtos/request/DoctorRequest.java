@@ -1,13 +1,13 @@
 
 package com.medicalappointments.medicalappointmentsmanager.dtos.request;
 
-import com.medicalappointments.medicalappointmentsmanager.enums.MedicalSpecialty;
+import com.medicalappointments.medicalappointmentsmanager.enums.DoctorSpecialty;
 import com.medicalappointments.medicalappointmentsmanager.enums.Shift;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class MedicalRequest {
+public class DoctorRequest {
     
     @NotBlank(message = "Name is required")
     @Size(min = 3, message = "Insert a valid name")
@@ -17,10 +17,10 @@ public class MedicalRequest {
     @Size(min = 3, message = "Insert a valid lastname")
     private String lastname;
     
-    @NotEmpty(message = "Medical Specialty is required")
-    private MedicalSpecialty specialty;
+    @NotEmpty(message = "Doctor Specialty is required")
+    private DoctorSpecialty specialty;
     
-    @NotEmpty(message = "Medical Shift type is required")
+    @NotEmpty(message = "Doctor Shift type is required")
     private Shift shiftType;
 
     public String getName() {
@@ -39,11 +39,11 @@ public class MedicalRequest {
         this.lastname = lastname;
     }
 
-    public MedicalSpecialty getSpecialty() {
+    public DoctorSpecialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(MedicalSpecialty specialty) {
+    public void setSpecialty(DoctorSpecialty specialty) {
         this.specialty = specialty;
     }
 

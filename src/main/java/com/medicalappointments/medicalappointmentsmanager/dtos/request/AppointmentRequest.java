@@ -9,7 +9,7 @@ public class AppointmentRequest {
 
     private UUID patientId;
     
-    private UUID medicalId;
+    private UUID doctorId;
     
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
@@ -22,12 +22,12 @@ public class AppointmentRequest {
         this.patientId = patientId;
     }
 
-    public UUID getMedicalId() {
-        return medicalId;
+    public UUID getDoctorId() {
+        return doctorId;
     }
 
-    public void setMedicalId(UUID medicalId) {
-        this.medicalId = medicalId;
+    public void setDoctorId(UUID doctorId) {
+        this.doctorId = doctorId;
     }
 
     public LocalDate getAppointmentDate() {

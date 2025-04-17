@@ -22,8 +22,8 @@ public class Appointment {
     private Patient patient;
     
     @ManyToOne
-    @JoinColumn(name = "medical_id")
-    private Medical medical;
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
     
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
@@ -31,10 +31,10 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Long id, Patient patient, Medical medical, LocalDate appointmentDate, LocalTime appointmentTime) {
+    public Appointment(Long id, Patient patient, Doctor doctor, LocalDate appointmentDate, LocalTime appointmentTime) {
         this.id = id;
         this.patient = patient;
-        this.medical = medical;
+        this.doctor = doctor;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
     }
@@ -55,12 +55,12 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public Medical getMedical() {
-        return medical;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setMedical(Medical medical) {
-        this.medical = medical;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public LocalDate getAppointmentDate() {

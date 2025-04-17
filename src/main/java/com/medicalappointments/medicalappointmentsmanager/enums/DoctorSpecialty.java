@@ -1,7 +1,7 @@
 
 package com.medicalappointments.medicalappointmentsmanager.enums;
 
-public enum MedicalSpecialty {
+public enum DoctorSpecialty {
     GENERAL_PRACTICE,
     CARDIOLOGY,
     DERMATOLOGY,
