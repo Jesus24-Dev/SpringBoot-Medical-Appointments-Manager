@@ -1,33 +1,34 @@
 
 package com.medicalappointments.medicalappointmentsmanager.dtos.request;
 
+import com.medicalappointments.medicalappointmentsmanager.models.Doctor;
+import com.medicalappointments.medicalappointmentsmanager.models.Patient;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
 public class AppointmentRequest {
 
-    private UUID patientId;
+    private Patient patient;
     
-    private UUID doctorId;
+    private Doctor doctor;
     
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
 
-    public UUID getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(UUID patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public UUID getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setDoctorId(UUID doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctorId(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public LocalDate getAppointmentDate() {
@@ -45,6 +46,5 @@ public class AppointmentRequest {
     public void setAppointmentTime(LocalTime appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
-    
     
 }
