@@ -6,6 +6,7 @@ import com.medicalappointments.medicalappointmentsmanager.enums.DoctorSpecialty;
 import com.medicalappointments.medicalappointmentsmanager.models.Doctor;
 import com.medicalappointments.medicalappointmentsmanager.repository.DoctorRepository;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class DoctorService {
         } catch (IllegalArgumentException e) {
             return List.of();
         }
+    }
+    
+    public Doctor getDoctorById(UUID id){
+        Doctor doctor = doctorRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Doctor not founded with ID: " + id));
+        return doctor;
     }
 }
