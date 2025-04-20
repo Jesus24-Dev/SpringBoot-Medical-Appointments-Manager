@@ -18,12 +18,12 @@ public class AuthController {
     @Autowired
     private PatientService patientService;
     
-    @GetMapping("/")
+    @GetMapping({"/", "/login"})
     public String loginPage(Model model){
         model.addAttribute("patient", new PatientRequest());
         return "login";
     }
-    
+       
     @GetMapping("/register")
     public String registerPage(Model model){
         model.addAttribute("patient", new PatientRequest());
