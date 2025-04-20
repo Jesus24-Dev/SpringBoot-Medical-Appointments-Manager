@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Medical List</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Include Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+            body {
+                font-family: 'Poppins', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-blue-600">MediSchedule</h1>
+                    <h2 class="text-2xl font-semibold text-gray-800 mt-2">Medical Professionals</h2>
+                </div>
+                <a th:href="@{/patient/myAppointments}" class="text-blue-600 hover:text-blue-800">Back to Dashboard</a>
+            </div>
+
+            <!-- Search Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <form th:action="@{/doctor/search}" method="get" class="flex flex-col md:flex-row gap-4 items-end">
+                    <div class="w-full md:w-auto flex-grow">
+                        <label for="specialty" class="block text-gray-700 text-sm font-medium mb-1">Search by Specialty:</label>
+                        <select id="specialty" name="specialty"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">-- All Specialties --</option>
+                            <option th:each="specialty : ${T(com.medicalappointments.medicalappointmentsmanager.enums.DoctorSpecialty).values()}"  
+                                    th:text="${specialty}"  
+                                    th:value="${specialty}">
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" 
+                            class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150">
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <!-- Doctors Table -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lastname</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shift</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr th:each="doctor : ${doctors}" class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" th:text="${doctor.lastname}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${doctor.name}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${doctor.shiftType}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${doctor.specialty}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <a th:href="@{/appointment/schedule(doctorId=${doctor.id})}" 
+                                       class="text-blue-600 hover:text-blue-900 font-medium">Schedule Appointment</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${doctors.empty}" class="bg-white p-8 rounded-lg shadow-md text-center mt-4">
+                <p class="text-gray-500">No doctors found matching your criteria.</p>
+                <a th:href="@{/doctor/list}" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">Show all doctors</a>
+            </div>
+        </div>
+    </body>
+</html>

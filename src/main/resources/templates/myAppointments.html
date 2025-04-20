@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Patient - Private Zone</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Include Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+            body {
+                font-family: 'Poppins', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-blue-600">MediSchedule</h1>
+                    <h2 class="text-2xl font-semibold text-gray-800 mt-2">Patient Dashboard</h2>
+                </div>
+                <form th:action="@{/logout}" method="post" class="flex items-center">
+                    <a th:href="@{/doctor/list}" class="mr-4 text-blue-600 hover:text-blue-800 font-medium">Doctor List</a>
+                    <button type="submit" 
+                            class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150">
+                        Logout
+                    </button>
+                </form>
+            </div>
+
+            <!-- Alert Messages -->
+            <div th:if="${success}" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded" role="alert">
+                <p th:text="${success}"></p>
+            </div>
+            <div th:if="${error}" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded" role="alert">
+                <p th:text="${error}"></p>
+            </div>
+
+            <!-- Appointments Table -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">Your Appointments</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr th:each="appt : ${appointments}" class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" th:text="${appt.appointmentDate}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${appt.appointmentTime}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${appt.doctor.name + ' ' + appt.doctor.lastname}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${appt.doctor.specialty}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <form th:if="${appt.appointmentDate.isAfter(T(java.time.LocalDate).now())}"
+                                          th:action="@{/appointment/cancel/{id}(id=${appt.id})}"
+                                          method="post">
+                                        <button type="submit" 
+                                                class="text-red-600 hover:text-red-900 font-medium">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                    <span th:if="${!appt.appointmentDate.isAfter(T(java.time.LocalDate).now())}"
+                                          class="text-gray-400 italic">
+                                        Non-cancellable
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div th:if="${appointments.empty}" class="bg-white p-8 rounded-lg shadow-md text-center mt-4">
+                <p class="text-gray-500">You don't have any scheduled appointments.</p>
+                <a th:href="@{/doctor/list}" class="text-blue-600 hover:text-blue-800 mt-2 inline-block font-medium">Book an appointment now</a>
+            </div>
+        </div>
+    </body>
+</html>
