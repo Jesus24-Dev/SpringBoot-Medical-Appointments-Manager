@@ -6,7 +6,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>My medical appointments</div>
         <h2>Hello world</h2>
+        <div th:if="${success}" style="color: green;">[[${success}]]</div>
+        <div th:if="${error}" style="color: red;">[[${error}]]</div>
+        <a th:href="@{/doctor/list}">Doctor list</a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Hour</th>
+                    <th>Doctor</th>
+                    <th>Specialty</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="appt : ${appointments}">
+                    <td th:text="${appt.appointmentDate}"></td>
+                    <td th:text="${appt.appointmentTime}"></td>
+                    <td th:text="${appt.doctor.name + ' ' + appt.doctor.lastname}"></td>
+                    <td th:text="${appt.doctor.specialty}"></td>
+                    <td>
+                        <form th:if="${appt.appointmentDate.isAfter(T(java.time.LocalDate).now())}"
+                              th:action="@{/appointment/cancel/{id}(id=${appt.id})}"
+                              method="post">
+                            <button type="submit">Cancel</button>
+                        </form>
+                        <span th:if="${!appt.appointmentDate.isAfter(T(java.time.LocalDate).now())}">
+                            Non-cancellable
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>
