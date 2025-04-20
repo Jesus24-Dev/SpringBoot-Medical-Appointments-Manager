@@ -31,4 +31,11 @@ public class PatientService {
         Patient savedPatient = patientRepository.save(patient);
         return new PatientResponse(savedPatient);
     }
+    
+    public Patient getPatientByEmail(String email){
+        Patient patient = patientRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Patient not founded with email: " + email));
+        
+        return patient;
+    }
 }
