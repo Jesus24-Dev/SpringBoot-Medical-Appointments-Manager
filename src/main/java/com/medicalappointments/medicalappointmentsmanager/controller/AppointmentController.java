@@ -46,6 +46,7 @@ public class AppointmentController {
         model.addAttribute("doctor", new DoctorResponse(doctor));
         model.addAttribute("availableHours", availableHours);
         model.addAttribute("appointmentRequest", new AppointmentRequest());
+        model.addAttribute("minDate", LocalDate.now().plusDays(1));
         return "scheduleAppointment";
     }
     
