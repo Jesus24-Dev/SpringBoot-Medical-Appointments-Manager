@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class Patient {
     private Gender gender;
     
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OrderBy("appointmentDate DESC")
     private List<Appointment> patientAppointments = new ArrayList<>();
     
     @CreationTimestamp
