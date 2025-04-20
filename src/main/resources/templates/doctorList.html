@@ -7,7 +7,6 @@
     </head>
     <body>
         <h2>Medical List</h2>
-
         <form th:action="@{/doctor/search}" method="get">
             <label for="specialty">Search by Specialty:</label>
             <select id="specialty" name="specialty">
@@ -37,6 +36,7 @@
                     <td th:text="${doctor.name}"></td>
                     <td th:text="${doctor.shiftType}"></td>
                     <td th:text="${doctor.specialty}"></td>
+                    <td><a th:href="@{/appointment/schedule(doctorId=${doctor.id})}">Schedule</a></td>
                 </tr>
             </tbody>
         </table>
